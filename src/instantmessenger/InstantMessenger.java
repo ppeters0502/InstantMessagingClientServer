@@ -8,11 +8,9 @@ package instantmessenger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +39,7 @@ public class InstantMessenger {
                     DataOutputStream outputStream = new DataOutputStream(client.getOutputStream());
                     
                     //We now need a thread handler for this new client. Start one up!
-                    ThreadedClass handler = new ThreadedClass(client, "Client number "+numberOfClients);
+                    ThreadedClass handler = new ThreadedClass(client, "Client number "+numberOfClients, inputStream, outputStream);
                     Thread thread = new Thread(handler);
                     
                     //Add client to list of Clients and start up the thread
