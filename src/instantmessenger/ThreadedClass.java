@@ -42,8 +42,8 @@ public class ThreadedClass implements Runnable {
 		try
 		{
 			//read the string
-			received = inputStream.readUTF();
-			System.out.println(received);
+			receivedMessage = inputStream.readUTF();
+			System.out.println(receivedMessage);
 
 			//if received message is logout, we want to close the socket
 			if(received.equals("logout"))
@@ -57,7 +57,8 @@ public class ThreadedClass implements Runnable {
 			//break it up into the message and the recipient
 
 
-		}
+		}Catch(IOExeption e)
+                {System.out.println("blah");}
 	}
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

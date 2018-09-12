@@ -28,10 +28,10 @@ public class InstantMessenger {
     public static void main(String[] args) {
              //Server listening on port 5000
              try{
-                ServerSocket socket = new ServerSocket(5000);
+                Server serverInstance = Server.getServer();
                 Socket client;
                 while(true){
-                    client = socket.accept();
+                    client = serverInstance.start();
                     System.out.println("New Client has connected");
 
                     //Grab the input and output streams
