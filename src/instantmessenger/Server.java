@@ -23,14 +23,8 @@ public class Server {
             
 		return instance;
 	}
-        public Socket start(){
-            try{
+        public Socket start() throws IOException {
             return instance.socketInstance.accept();
-            }catch(IOException i)
-            {
-                System.out.println("uhoh at start");
-            }
-            return new Socket();
         }
 	
 }
