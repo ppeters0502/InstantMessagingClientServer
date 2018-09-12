@@ -37,6 +37,28 @@ public class ThreadedClass implements Runnable {
     @Override
     public void run() {
         String receivedMessage;
+	while(true)
+	{
+		try
+		{
+			//read the string
+			received = inputStream.readUTF();
+			System.out.println(received);
+
+			//if received message is logout, we want to close the socket
+			if(received.equals("logout"))
+			{
+				this.isLoggedIn=false;
+				this.client.close();
+				break;
+			}
+
+			//if message is anything else, we want to show it!
+			//break it up into the message and the recipient
+
+
+		}
+	}
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
