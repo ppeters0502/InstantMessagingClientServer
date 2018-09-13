@@ -7,6 +7,7 @@ package instantmessenger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -46,20 +47,34 @@ public class ThreadedClass implements Runnable {
 			System.out.println(receivedMessage);
 
 			//if received message is logout, we want to close the socket
-			if(received.equals("logout"))
+			if(receivedMessage.equals("logout"))
 			{
 				this.isLoggedIn=false;
 				this.client.close();
 				break;
 			}
+            
+            //Take the clientName passed in and check it against the vector
+            //of clients
+            for(ThreadedClass mc : InstantMessenger.clientList)
+            {
+                //If receipient is found, write oun its output stream
+                if(mc.clientName.equals(clientName) && mc.isLoggedIn==true)
+                {
+                    mc.outputStream.writeUTF(this.clientName+" : "+receivedMessage);
+                    break;
+                }
+            }
 
-			//if message is anything else, we want to show it!
-			//break it up into the message and the recipient
-
-
-		}Catch(IOExeption e)
+		}catch(IOException e)
                 {System.out.println("blah");}
 	}
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try{
+        //closing resources
+        this.inputStream.close();
+        this.outputStream.close();
+    }catch(IOException e){
+        e.printStackTrace();
+    }
     }
 }
