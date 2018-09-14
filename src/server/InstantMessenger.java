@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package instantmessenger;
+package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -39,7 +39,7 @@ public class InstantMessenger {
                     DataOutputStream outputStream = new DataOutputStream(client.getOutputStream());
                     
                     //We now need a thread handler for this new client. Start one up!
-                    ThreadedClass handler = new ThreadedClass(client, "Client number "+numberOfClients, inputStream, outputStream);
+                    ThreadedClass handler = new ThreadedClass(client, ""+numberOfClients, inputStream, outputStream);
                     Thread thread = new Thread(handler);
                     
                     //Add client to list of Clients and start up the thread

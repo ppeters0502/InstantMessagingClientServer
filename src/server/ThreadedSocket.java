@@ -1,4 +1,4 @@
-package sockets;
+package server;
 
 import java.io.IOException;
 import java.io.PrintStream;

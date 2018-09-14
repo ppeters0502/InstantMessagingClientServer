@@ -1,6 +1,9 @@
-package chatclient;
-import java.net.*;
+package client;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Scanner;
 
 public class Client implements SocketClient {
@@ -9,17 +12,17 @@ public class Client implements SocketClient {
     private DataOutputStream outputStream;
     private InetAddress IPAddress;
     private int ServerPort;
-    private Socket s;
+    private Socket so;
     private Thread readMessage;
     private Thread sendMessage;
     public Scanner sc;
 
-    public Client(InetAddress ip, int sp, Scanner s){
+    public Client(InetAddress ip, int sp, Scanner s) throws IOException{
         this.IPAddress = ip;
         this.ServerPort = sp;
-        this.Socket = new Socket(IPAddress, ServerPort);
-        this.inputStream = new DataInputStream(s.getInputStream());
-        this.outputStream = new DataOutputStream(s.getOutputStream());
+        this.so = new Socket(IPAddress, ServerPort);
+        this.inputStream = new DataInputStream(so.getInputStream());
+        this.outputStream = new DataOutputStream(so.getOutputStream());
         this.sc = s;
     }
     
@@ -32,7 +35,7 @@ public class Client implements SocketClient {
                     try{
                         //read the message sent to this client
                         String msg = inputStream.readUTF();
-                        System.out.println(msg);
+                        System.out.println("    "+msg);
                     } catch(IOException e){
                         e.printStackTrace();
                     }

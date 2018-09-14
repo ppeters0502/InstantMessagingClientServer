@@ -1,4 +1,4 @@
-package chatclient;
+package client;
 
 public interface SocketClient {
     void startReceive();

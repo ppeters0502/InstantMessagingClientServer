@@ -1,8 +1,12 @@
-package chatclient
-import java.net.*;
+package client;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Scanner;
+
+
 public class ClientFactory{
     //use getType to double check it is a Client we want to build
-    public Client getClient(String clientType, inetAddress ip, int sp, Scanner s){
+    public static Client getClient(String clientType, InetAddress ip, int sp, Scanner s) throws IOException{
         if(clientType == null){
             return null;
         }
