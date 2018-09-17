@@ -10,9 +10,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
 /**
  *
@@ -23,7 +26,7 @@ public class InstantMessenger {
     //Client Counter and Client list
     static ArrayList<ThreadedClass> clientList = new ArrayList<ThreadedClass>();
     public static int numberOfClients;
-    
+    public static Scanner sc = new Scanner(System.in);
     
     public static void main(String[] args) {
              //Server listening on port 5000
@@ -48,6 +51,8 @@ public class InstantMessenger {
                     thread.start();
                     
                     numberOfClients++;
+                    updateHTML();
+                    
                 }
              }
              catch(IOException e)
@@ -55,6 +60,28 @@ public class InstantMessenger {
                  Logger.getLogger(InstantMessenger.class.getName()).log(Level.SEVERE, null, e);
              }
          
+    }
+    
+    public static void updateHTML() throws IOException {
+            String line = sc.nextLine();
+            String[] httpArgs = line.split(" ");
+            if (httpArgs[1].equals("/")) 
+            {
+                String pageContents = new String(Files.readAllBytes(Paths.get("index.html")));
+                String pageContent = "";
+                for(int i=0; i<clientList.size(); i++)
+                {
+                    
+                }
+            }
+            else 
+            {
+                
+            } 
+            
+        
+        
+        
     }
     
 }
