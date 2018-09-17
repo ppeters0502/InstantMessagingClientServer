@@ -73,12 +73,13 @@ public class ThreadedClass implements Runnable {
             
                 //Take the clientName passed in and check it against the vector
                 //of clients
-                for(ThreadedClass mc : InstantMessenger.clientList)
+                for(int i=0; i<InstantMessenger.clientList.size(); i++) 
                 {
+                    ThreadedClass mc = InstantMessenger.clientList.get(i);
                     //If receipient is found, write oun its output stream
-                    if((mc.clientName.equals(clientName) || mc.clientName.equals(recipient)) && mc.isLoggedIn==true)
+                    if(mc.clientName.equals(recipient) && mc.isLoggedIn==true)
                     {
-                        mc.outputStream.writeUTF(this.clientName+" : "+receivedMessage);
+                        mc.outputStream.writeUTF(this.clientName+" : "+MsgToSend);
                         break;
                     }
                 }
