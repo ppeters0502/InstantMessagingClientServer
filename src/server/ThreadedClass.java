@@ -45,7 +45,7 @@ public class ThreadedClass implements Runnable {
             {
                 //read the string
                 receivedMessage = inputStream.readUTF();
-                System.out.println(receivedMessage);
+                //System.out.println(receivedMessage);
 
                 //if received message is logout, we want to close the socket
                 if(receivedMessage.equals("logout"))
@@ -76,7 +76,7 @@ public class ThreadedClass implements Runnable {
                 for(int i=0; i<InstantMessenger.clientList.size(); i++) 
                 {
                     ThreadedClass mc = InstantMessenger.clientList.get(i);
-                    //If receipient is found, write oun its output stream
+                    //If receipient is found, write on its output stream
                     if(mc.clientName.equals(recipient) && mc.isLoggedIn==true)
                     {
                         mc.outputStream.writeUTF(this.clientName+" : "+MsgToSend);
@@ -94,5 +94,8 @@ public class ThreadedClass implements Runnable {
     }catch(IOException e){
         e.printStackTrace();
     }
+    }
+    public String getClientName(){
+        return clientName;
     }
 }

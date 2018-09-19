@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -24,7 +25,7 @@ import java.util.Scanner;
 public class InstantMessenger {
 
     //Client Counter and Client list
-    static ArrayList<ThreadedClass> clientList = new ArrayList<ThreadedClass>();
+    public static ArrayList<ThreadedClass> clientList = new ArrayList<ThreadedClass>();
     public static int numberOfClients;
     public static Scanner sc = new Scanner(System.in);
     
@@ -35,14 +36,25 @@ public class InstantMessenger {
                 Socket client;
                 while(true){
                     client = serverInstance.start();
-                    System.out.println("New Client has connected");
+                    System.out.println("New Client has connected: "+client);
 
                     //Grab the input and output streams
                     DataInputStream inputStream = new DataInputStream(client.getInputStream());
+                    //Check InputStream for a username
+                    String input = inputStream.readUTF();
+                    String clientName = "";
+                    StringTokenizer st = new StringTokenizer(input, "###$$$###");
+                    if(st.countTokens()>0)
+                    {
+                        clientName = st.nextToken();
+                        System.out.println("Client "+clientName+" has connected.");
+                    }
+                  
                     DataOutputStream outputStream = new DataOutputStream(client.getOutputStream());
                     
+                    
                     //We now need a thread handler for this new client. Start one up!
-                    ThreadedClass handler = new ThreadedClass(client, ""+numberOfClients, inputStream, outputStream);
+                    ThreadedClass handler = new ThreadedClass(client, clientName, inputStream, outputStream);
                     Thread thread = new Thread(handler);
                     
                     //Add client to list of Clients and start up the thread
@@ -51,7 +63,6 @@ public class InstantMessenger {
                     thread.start();
                     
                     numberOfClients++;
-                    updateHTML();
                     
                 }
              }
@@ -62,27 +73,7 @@ public class InstantMessenger {
          
     }
     
-    public static void updateHTML() throws IOException {
-            String line = sc.nextLine();
-            String[] httpArgs = line.split(" ");
-            if (httpArgs[1].equals("/")) 
-            {
-                String pageContents = new String(Files.readAllBytes(Paths.get("index.html")));
-                String pageContent = "";
-                for(int i=0; i<clientList.size(); i++)
-                {
-                    
-                }
-            }
-            else 
-            {
-                
-            } 
-            
-        
-        
-        
-    }
+
     
 }
 

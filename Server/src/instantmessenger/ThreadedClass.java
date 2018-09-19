@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class ThreadedClass implements Runnable {
     
     private final Socket client;
-    private final String clientName;
+    public final String clientName;
     final DataInputStream inputStream;
     final DataOutputStream outputStream;
     Scanner sc = new Scanner(System.in);
@@ -76,5 +76,9 @@ public class ThreadedClass implements Runnable {
     }catch(IOException e){
         e.printStackTrace();
     }
+    }
+    
+    public String getClientName(){
+        return clientName;
     }
 }
