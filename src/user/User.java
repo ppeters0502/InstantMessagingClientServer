@@ -14,6 +14,5 @@ import javax.security.auth.login.LoginException;
  * @author ppeters
  */
 public interface User {
-    void Authenticate(String name, String pass);
     SocketClient startChatClient(String user) throws UnknownHostException, IOException;
 }

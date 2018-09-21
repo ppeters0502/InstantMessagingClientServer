@@ -19,9 +19,11 @@ public class UserMain {
         String username = sc.nextLine();
         System.out.println("Please enter your password: ");
         String password = sc.nextLine();
-        System.out.println("Hello "+username+", welcome to the chatroom!");
         try {
         User newUser = UserFactory.getUser(username, password, "CHATUSER");
+        if(newUser == null)
+            System.out.println("Your Password attempt was invalid");
+        System.exit(0);
         SocketClient socketInstance = newUser.startChatClient(username);
         } catch(UnknownHostException e)
         {

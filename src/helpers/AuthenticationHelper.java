@@ -25,12 +25,10 @@ public class AuthenticationHelper {
     
     public boolean verifySecurePassword(String password, byte[] storedSalt, String storedHash) throws NoSuchAlgorithmException, NoSuchProviderException {
         Salt = null;
-        System.out.println("Salt passed into verification is: "+storedSalt);
         Salt = storedSalt;
         String tempSalt = new String(Salt, StandardCharsets.UTF_8);
         System.out.println("VerificationPassword: Salt in bytes: "+Arrays.toString(Salt));
         credential credInstance = getSecurePassword(password, Salt);
-        
         System.out.println("StoredHash is "+storedHash+"\nsecuredPassword is "+credInstance.getHash());
         String securedPassword = credInstance.getHash();
         if(storedHash.equals(securedPassword))

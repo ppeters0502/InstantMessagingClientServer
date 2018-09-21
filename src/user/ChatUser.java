@@ -32,7 +32,6 @@ public class ChatUser implements User {
     
     public ChatUser(String name, String pass) throws UnknownHostException, IOException
     {
-        Authenticate(name, pass);
         _username = name;
         _password = pass;
         
@@ -48,59 +47,6 @@ public class ChatUser implements User {
         return chatClientInstance; 
     }
     
-    @Override
-    public void Authenticate(String name, String pass){
-         
-        //First check SQLite db for existing username. If it exists, grab hash and salt as well
-        SQLHelper helperInstance = new SQLHelper();
-        String username = "";
-        String Hash = "";
-        byte[] Salt = null;
-        try{
-            ResultSet queryResults = helperInstance.select("instantmessenger.db", "Users", "*", "UserName like '"+name+"'");
-            while(queryResults.next())
-            {
-             username = queryResults.getString("UserName");
-             Hash = queryResults.getString("Hash");
-             Blob blo = queryResults.getBlob("Salt");
-             Salt = blo.getBytes(0, (int)blo.length());
-            }
-            if(username.toLowerCase()==name.toLowerCase())
-            {
-                AuthenticationHelper authInstance = new AuthenticationHelper();
-                boolean isVerified = false;
-                try
-                {
-                    isVerified = authInstance.verifySecurePassword(pass, Salt, Hash);
-                }
-                catch(NoSuchAlgorithmException e)
-                {
-                    e.printStackTrace();
-                }
-                catch(NoSuchProviderException e)
-                {
-                    e.printStackTrace();
-                }
-                if(isVerified==true)
-                    System.out.println("User is Authenticated. Welcome "+username+"!");
-                else if(isVerified==false)
-                    System.out.println("Password is Invalid. Please try again");    
-            }
-            else
-            {
-                System.out.println("This Username Does Not Exist.");
-            }
-        } catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
-         catch(ClassNotFoundException e)
-         {
-             e.printStackTrace();
-         }
-        
-        
-        System.out.println("User is now authenticated");
-    }
+    
     
 }

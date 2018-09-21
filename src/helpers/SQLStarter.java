@@ -8,25 +8,31 @@ package helpers;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import user.credential;
+import java.util.Scanner;
 
 /**
  *
  * @author ppeters
  */
 public class SQLStarter {
-    public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchProviderException, ClassNotFoundException {
-        SQLHelper helper = new SQLHelper();
-        AuthenticationHelper authInstance = new AuthenticationHelper();
-        helper.connectDB("instantmessenger.db");
+    public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchProviderException, ClassNotFoundException, SQLException {
+        Scanner sc = new Scanner(System.in);
+        SQLHelper helper = new SQLHelper();        
+        helper.connectDB("instantmessenger.db");  
         helper.createUserTable();
-        String username = "Pat";
-        boolean isAdmin = true;
+        AuthenticationHelper authInstance = new AuthenticationHelper();
+        System.out.println("Enter a username for a new user to create!");
+        String username = sc.nextLine();
+        System.out.println("Now enter a password");
+        String password = sc.nextLine();
         credential credentials = null;
         try
         {
-            credentials = authInstance.createSecurePassword("Password123");
+            credentials = authInstance.createSecurePassword(password);
             System.out.println("Credentials are created. Salt is:"+Arrays.toString(credentials.getSalt()));
             System.out.println("Credendtials are created. Hash is: "+credentials.getHash());
         }
@@ -38,18 +44,15 @@ public class SQLStarter {
         {
             e.printStackTrace();
         }
- 
-        
-        
         
         System.out.println("Time to verify the Hash!");
-        boolean isValid = authInstance.verifySecurePassword("Password123", credentials.getSalt(), credentials.getHash());
+        boolean isValid = authInstance.verifySecurePassword(password, credentials.getSalt(), credentials.getHash());
         if(isValid == true)
             System.out.println("Hash is Valid!!!");
         else if(isValid == false)
-            System.out.println("You fucked up somewhere");
+            System.out.println("You messed up somewhere");
         
-        String[] users = new String[]{username, "true"};
+        String[] users = new String[]{username, "false"};
         //(String nameDB, String nameTable, String[] user, credential values)   
         helper.insertUsers("instantmessenger.db", "Users", users, credentials);
     }

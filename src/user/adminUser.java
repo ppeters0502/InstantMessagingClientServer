@@ -32,8 +32,6 @@ public class adminUser implements User {
         return chatClientInstance; 
     }
     
-    @Override
-    public void Authenticate(String name, String password){}
     
     public void CreateUser(String username, String Password){}
     
