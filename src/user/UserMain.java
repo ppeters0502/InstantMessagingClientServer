@@ -22,8 +22,11 @@ public class UserMain {
         try {
         User newUser = UserFactory.getUser(username, password, "CHATUSER");
         if(newUser == null)
+        {
             System.out.println("Your Password attempt was invalid");
-        System.exit(0);
+            System.exit(0);
+        }
+            
         SocketClient socketInstance = newUser.startChatClient(username);
         } catch(UnknownHostException e)
         {
