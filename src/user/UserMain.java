@@ -17,9 +17,11 @@ public class UserMain {
         Scanner sc = new Scanner(System.in);
         System.out.println("Hello! Please input a username:");
         String username = sc.nextLine();
+        System.out.println("Please enter your password: ");
+        String password = sc.nextLine();
         System.out.println("Hello "+username+", welcome to the chatroom!");
         try {
-        User newUser = UserFactory.getUser(username, "password", "CHATUSER");
+        User newUser = UserFactory.getUser(username, password, "CHATUSER");
         SocketClient socketInstance = newUser.startChatClient(username);
         } catch(UnknownHostException e)
         {

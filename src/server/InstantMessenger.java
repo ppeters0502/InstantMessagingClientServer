@@ -36,8 +36,6 @@ public class InstantMessenger {
                 Socket client;
                 while(true){
                     client = serverInstance.start();
-                    System.out.println("New Client has connected: "+client);
-
                     //Grab the input and output streams
                     DataInputStream inputStream = new DataInputStream(client.getInputStream());
                     //Check InputStream for a username
