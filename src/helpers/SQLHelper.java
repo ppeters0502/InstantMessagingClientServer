@@ -28,7 +28,7 @@ public class SQLHelper {
     }
     public Connection connectDB(String fileName) throws ClassNotFoundException{
         c=null;
-        url = "jdbc:sqlite:C:/Users/ppeters/Documents/Git/db/" + fileName;
+        url = "jdbc:sqlite:./db/" + fileName;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection(url);
@@ -47,7 +47,7 @@ public class SQLHelper {
         c=null;
         stmt = null;
         //Creating users table
-        url = "jdbc:sqlite:C:/Users/ppeters/Documents/Git/db/instantmessenger.db";
+        url = "jdbc:sqlite:./db/instantmessenger.db";
         sqlStatement = "CREATE TABLE IF NOT EXISTS Users (\n"
                 + "UserID INTEGER PRIMARY KEY AUTOINCREMENT, \n"
                 +"UserName text NOT NULL, \n"
@@ -68,7 +68,7 @@ public class SQLHelper {
         stmt = null;
         try{
             Class.forName("org.sqlite.JDBC");
-            url = "jdbc:sqlite:C:/Users/ppeters/Documents/Git/db/"+nameDB;
+            url = "jdbc:sqlite:./db/"+nameDB;
             c = DriverManager.getConnection(url);
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
@@ -88,7 +88,7 @@ public class SQLHelper {
     
     public void insertUsers(String nameDB, String nameTable, String[] user, credential values) throws ClassNotFoundException{
             Class.forName("org.sqlite.JDBC");
-            url = "jdbc:sqlite:C:/Users/ppeters/Documents/Git/db/"+nameDB;
+            url = "jdbc:sqlite:./db/"+nameDB;
             System.out.println("Opened database successfully");
             sqlStatement = "INSERT into "+nameTable.toUpperCase()+"(UserName, isAdmin, Hash, Salt) VALUES (?,?,?,?)";
             try (Connection conn = this.connectDB(nameDB);
@@ -130,7 +130,7 @@ public class SQLHelper {
         ResultSet temp = null;
         ArrayList<SQLResult> results = new ArrayList<SQLResult>();
         Class.forName("org.sqlite.JDBC");
-        url = "jdbc:sqlite:C:/Users/ppeters/Documents/Git/db/"+nameDB;
+        url = "jdbc:sqlite:./db/"+nameDB;
         try(Connection conn = this.connectDB(nameDB);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sqlStatement)){
@@ -142,7 +142,7 @@ public class SQLHelper {
                   SQLResult resultInstance = null;
                   for(int i=1; i<iResult; i++)
                   {
-                     switch(colTypes[i]){
+                     switch(colTypes[i].toLowerCase()){
                      case "text":
                         resultInstance = new SQLResult(colTypes[i],colNames[i],rs.getString(colNames[i]));
                         break;
@@ -220,7 +220,7 @@ public class SQLHelper {
     
     public void TestSQLSelect(String username) throws ClassNotFoundException{
         String sql = "SELECT * from Users where UserName like \'"+username+"\'";
-        url = "jdbc:sqlite:C:/Users/ppeters/Documents/Git/db/instantmessenger.db";
+        url = "jdbc:sqlite:./db/instantmessenger.db";
         try(Connection conn = this.connectDB("instantmessenger.db");
             Statement stmt = conn.createStatement()){
                 ResultSet rs = stmt.executeQuery(sql);
