@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+  <!--Scripts provided by easyrtc API -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="../easyrtc/easyrtc.js"></script>
+  <!-- My Script! -->
+  <script type="text/javascript" src="js/script.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <style>
@@ -19,8 +23,7 @@
       border-radius: 3px;
       height: 100vh;
       max-height: 600px;
-      width: 100vw;
-      max-width: 400px;
+      width: 100%;
       display: flex;
       flex-direction: column;
     }
@@ -74,12 +77,80 @@
       font-size: 16px;
       cursor: pointer;
     }
+    /*Garbage from other client. I like the bubbles, leave me alone!*/
+    .chat-header {
+      background-color: #efefef;
+      border-bottom: 1px solid #6363bf;
+      padding: 0.5em;
+      padding-bottom: .7em;
+      text-align: center;
+    }
+
+    .chat-header span {
+      font-size: 12px;
+      position: absolute;
+      margin: 47px -50px;
+      font-style: italic;
+    }
+
+    .user-profile {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      border-radius: 100%;
+      background: #DFDFEF;
+      margin: 0 10px;
+      background-size: cover;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+      cursor: pointer
+    }
+
+    .user-profile:nth-child(1) {
+      background-image: url(http://vignette3.wikia.nocookie.net/fairytail/images/0/02/Mugshot_of_Erza.png/revision/latest?cb=20130509171537);
+    }
+
+    .user-profile:nth-child(3) {
+      background-image: url(http://orig15.deviantart.net/8172/f/2016/079/7/2/natsu_xabused_reader_fire_within_the_heart_p1_by_minnibellsnow-d9vv2cy.jpg);
+    }
+
+    .user-profile:nth-child(5) {
+      background-image: url(http://vignette3.wikia.nocookie.net/fairytail/images/e/e7/Lucy_prof_2.jpg/revision/latest?cb=20111024225521);
+    }
+
+    .user-profile:nth-child(7) {
+      background-image: url(https://i.ytimg.com/vi/sROSCGZq1rA/hqdefault.jpg);
+    }
+
+    .user-profile.active {
+      -webkit-filter: grayscale(0%);
+      filter: grayscale(0%);
+    }
   </style>
 </head>
-<body>
+<body onload="connect()">
   <div class="content">
+    <div id="otherUsers" class="chat-header">
+      <template data-template="user">
+        <div class="user-profile"></div>
+        <span class="user-profile-name"></span>
+      </template>
+        <div class="user-profile active" data-up='cont1'></div>
+        <span>Erza</span>
+        <div class="user-profile" data-up='cont2'></div>
+        <span>Nastu</span>
+        <div class="user-profile" data-up='cont3'></div>
+        <span>Lucy</span>
+        <div class="user-profile" data-up='cont4'></div>
+        <span>Goku?</span>
+    </div>
     <div class="messages">
-
+      <div class="message message--mine">
+        <div class="message__bubble"><p>Hello?</p></div>
+      </div>
+      <div class="message message--theirs">
+        <div class="message__bubble"><p>nope!</p></div>
+      </div>
     </div>
     <form class="footer" onsubmit="return false;">
       <input type="text" placeholder="Your message..">
@@ -93,8 +164,6 @@
       <div class="message__bubble"></div>
     </div>
   </template>
-
-  <script src="script.js"></script>
 
 </body>
 </html>
