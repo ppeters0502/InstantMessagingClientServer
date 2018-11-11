@@ -12,7 +12,11 @@ function randomEmoji(){
 }
 
 const emoji = randomEmoji();
-
+const form = document.querySelector('form');
+form.addEventListener('submit', () => {
+    const userSelector = document.getElementById("userSelect");
+    const userId = userSelector.options[userSelector.selectedIndex].value;
+});
 
 if(!location.hash){
 	location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
@@ -43,13 +47,26 @@ function convertListToIcons(roomName, occupants, isPrimary){
   var otherClientDiv = document.getELementById('otherUsers');
   while(otherClientDiv.hasChildNodes()){
       otherClientDiv.removeChild(otherClientDiv.lastChild);
-  }
-  const userTemplate = document.querySelector('template[data-template="user"]');
-  for(var easyrtc in occupants){
-    var userClone = document.importNode(userTemplate.content, true);
+    }
+    const userSelector = document.getElementById("userSelect");
+    for (var easyrtcid in occupants) {
+        userSelector.options[userSelector.options.length] = new Option(easyrtc.idToName(easyrtcid), easyrtcid);
   }
 
 }
+
+function sendStuffWS(otherEasyrtcid) {
+    var text = document.getElementById('sendMessageText').value;
+    if (text.replace(/\s/g, "").length === 0) { // Don't send just whitespace
+        return;
+    }
+
+    easyrtc.sendDataWS(otherEasyrtcid, "message", text);
+    addToConversation("Me", "message", text);
+    document.getElementById('sendMessageText').value = "";
+}
+
+
 
 // function insertMessageToDOM(options, isFromMe) {
 //   const template = document.querySelector('template[data-template="message"]');

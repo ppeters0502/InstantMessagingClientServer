@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <!--Scripts provided by easyrtc API -->
@@ -70,80 +70,18 @@
       font-size: 16px;
       background: transparent;
     }
-    button {
-      border: none;
-      background: transparent;
-      padding: 0 30px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    /*Garbage from other client. I like the bubbles, leave me alone!*/
-    .chat-header {
-      background-color: #efefef;
-      border-bottom: 1px solid #6363bf;
-      padding: 0.5em;
-      padding-bottom: .7em;
-      text-align: center;
-    }
+      button {
+          border: 1px solid rgba(156, 172, 172, 0.2);
+          background: transparent;
+          padding: 0 30px;
+          font-size: 16px;
+          cursor: pointer;
+      }
 
-    .chat-header span {
-      font-size: 12px;
-      position: absolute;
-      margin: 47px -50px;
-      font-style: italic;
-    }
-
-    .user-profile {
-      width: 50px;
-      height: 50px;
-      display: inline-block;
-      border-radius: 100%;
-      background: #DFDFEF;
-      margin: 0 10px;
-      background-size: cover;
-      -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
-      cursor: pointer
-    }
-
-    .user-profile:nth-child(1) {
-      background-image: url(http://vignette3.wikia.nocookie.net/fairytail/images/0/02/Mugshot_of_Erza.png/revision/latest?cb=20130509171537);
-    }
-
-    .user-profile:nth-child(3) {
-      background-image: url(http://orig15.deviantart.net/8172/f/2016/079/7/2/natsu_xabused_reader_fire_within_the_heart_p1_by_minnibellsnow-d9vv2cy.jpg);
-    }
-
-    .user-profile:nth-child(5) {
-      background-image: url(http://vignette3.wikia.nocookie.net/fairytail/images/e/e7/Lucy_prof_2.jpg/revision/latest?cb=20111024225521);
-    }
-
-    .user-profile:nth-child(7) {
-      background-image: url(https://i.ytimg.com/vi/sROSCGZq1rA/hqdefault.jpg);
-    }
-
-    .user-profile.active {
-      -webkit-filter: grayscale(0%);
-      filter: grayscale(0%);
-    }
   </style>
 </head>
 <body onload="connect()">
   <div class="content">
-    <div id="otherUsers" class="chat-header">
-      <template data-template="user">
-        <div class="user-profile"></div>
-        <span class="user-profile-name"></span>
-      </template>
-        <div class="user-profile active" data-up='cont1'></div>
-        <span>Erza</span>
-        <div class="user-profile" data-up='cont2'></div>
-        <span>Nastu</span>
-        <div class="user-profile" data-up='cont3'></div>
-        <span>Lucy</span>
-        <div class="user-profile" data-up='cont4'></div>
-        <span>Goku?</span>
-    </div>
     <div class="messages">
       <div class="message message--mine">
         <div class="message__bubble"><p>Hello?</p></div>
@@ -154,6 +92,9 @@
     </div>
     <form class="footer" onsubmit="return false;">
       <input type="text" placeholder="Your message..">
+      <select id="userSelect">
+          <option value="volvo">Volvo</option>
+      </select>
       <button type="submit">Send</button>
     </form>
   </div>
