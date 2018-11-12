@@ -2,8 +2,12 @@
 <html>
 <head>
   <!--Scripts provided by easyrtc API -->
+  <script type="text/javascript" src="js/prettify/prettify.js"></script>
+  <link rel="stylesheet" type="text/css" href="js/prettify/prettify.css" />
+  <script type="text/javascript" src="js/prettify/loadAndFilter.js"></script>
+  <script type="text/javascript" src="js/prettify/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="../easyrtc/easyrtc.js"></script>
+  <script type="text/javascript" src="easyrtc/api/easyrtc.js"></script>
   <!-- My Script! -->
   <script type="text/javascript" src="js/script.js"></script>
   <meta charset="utf-8">
@@ -91,7 +95,7 @@
       </div>
     </div>
     <form class="footer" onsubmit="return false;">
-      <input type="text" placeholder="Your message..">
+      <input id="sendMessageText" type="text" placeholder="Your message..">
       <select id="userSelect">
           <option value="volvo">Volvo</option>
       </select>

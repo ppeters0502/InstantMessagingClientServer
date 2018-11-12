@@ -66,6 +66,15 @@ function sendStuffWS(otherEasyrtcid) {
     document.getElementById('sendMessageText').value = "";
 }
 
+function loginSuccess(easyrtcid) {
+    selfEasyrtcid = easyrtcid;
+    document.getElementById("iam").innerHTML = "I am " + easyrtcid;
+}
+
+
+function loginFailure(errorCode, message) {
+    easyrtc.showError(errorCode, message);
+}
 
 
 // function insertMessageToDOM(options, isFromMe) {
