@@ -1,11 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+  <!--<link rel="stylesheet" type="text/css" href="../easyrtc/easyrtc.css" />-->
+  <!--hide-->
+  <link rel="stylesheet" type="text/css" href="css/landing.css" />
   <!--Scripts provided by easyrtc API -->
-  <script type="text/javascript" src="js/prettify/prettify.js"></script>
+  <!--<script type="text/javascript" src="js/prettify/prettify.js"></script>
   <link rel="stylesheet" type="text/css" href="js/prettify/prettify.css" />
   <script type="text/javascript" src="js/prettify/loadAndFilter.js"></script>
-  <script type="text/javascript" src="js/prettify/jquery.min.js"></script>
+  <script type="text/javascript" src="js/prettify/jquery.min.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="../easyrtc/easyrtc.js"></script>
   <!-- My Script! -->
@@ -99,7 +103,7 @@
       <select id="userSelect">
           <option value="volvo">Volvo</option>
       </select>
-      <button type="submit">Send</button>
+      <button id="sendButton">Send</button>
     </form>
   </div>
 

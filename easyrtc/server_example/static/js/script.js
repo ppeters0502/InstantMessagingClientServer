@@ -12,11 +12,11 @@ function randomEmoji(){
 }
 
 const emoji = randomEmoji();
-const form = document.querySelector('form');
-form.addEventListener('submit', () => {
-    const userSelector = document.getElementById("userSelect");
-    const userId = userSelector.options[userSelector.selectedIndex].value;
-});
+const form = $('#form');
+
+
+
+
 
 if(!location.hash){
 	location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
@@ -39,15 +39,20 @@ function addToConversation(who, msgType, content){
 function connect(){
   easyrtc.setPeerListener(addToConversation);
   easyrtc.setRoomOccupantListener(convertListToIcons);
+  const submitButton = document.getElementById('sendButton');
+  submitButton.addEventListener("click", function(){
+    var userSelector = document.getElementById("userSelect");
+    var easyrtcid = userSelector.options[userSelector.selectedIndex].value;
+            console.log("easyrtcid: "+easyrtcid);
+              return function() {
+                  sendStuffWS(easyrtcid);
+              }
+  });
   easyrtc.connect("easyrtc.instantMessaging", loginSuccess, loginFailure);
 
 }
 
 function convertListToIcons(roomName, occupants, isPrimary){
-  var otherClientDiv = document.getElementById('otherUsers');
-  while(otherClientDiv.hasChildNodes()){
-      otherClientDiv.removeChild(otherClientDiv.lastChild);
-    }
     const userSelector = document.getElementById("userSelect");
     for (var easyrtcid in occupants) {
         userSelector.options[userSelector.options.length] = new Option(easyrtc.idToName(easyrtcid), easyrtcid);
@@ -57,6 +62,7 @@ function convertListToIcons(roomName, occupants, isPrimary){
 
 function sendStuffWS(otherEasyrtcid) {
     var text = document.getElementById('sendMessageText').value;
+    console.log("text from sendStuffWS: "+text);
     if (text.replace(/\s/g, "").length === 0) { // Don't send just whitespace
         return;
     }
@@ -68,7 +74,7 @@ function sendStuffWS(otherEasyrtcid) {
 
 function loginSuccess(easyrtcid) {
     selfEasyrtcid = easyrtcid;
-    document.getElementById("iam").innerHTML = "I am " + easyrtcid;
+    //document.getElementById("iam").innerHTML = "I am " + easyrtcid;
 }
 
 
